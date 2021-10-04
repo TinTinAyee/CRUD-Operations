@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= pageTitle %></title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #e9ebee;
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title{
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: row;
+            margin: 0px 150px;
+        }
+
+        .card {
+            width: 700px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgb(155, 160, 185, .5),
+                0px 15px 40px rgb(166, 173, 201, .5);
+            border: none;
+        }
+
+        .result {
+            font-size: 21px;
+        }
+
+        label {
+            font-size: 28px;
+        }
+
+        a {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        <div class="container">
+            <div class="row justify-content-center" style="margin-top: 100px;" >
+                <div class="col card">
+                    <div class="title mt-3">
+                        <form action="/" method="GET">
+                            <button type="submit" class="btn btn-primary mr-2">
+                                <i class="fas fa-list"></i> Temperature List
+                            </button>
+                        </form>
+                        <form action="/add-temp" method="GET">
+                            <button type="submit" class="btn btn-success ml-2">
+                                <i class="fas fa-plus"></i> Add Temperature
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="text-center mt-3 mb-3"  >
+                        <h1>Temperature List</h1>
+                    </div> 
+
+                    <div class="table">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Temperature</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(tempData.length > 0) { %>
+                                    <% for(let temp of tempData) { %>
+                                        <tr>
+                                            <td>1/11/2021</td>
+                                            <td> <%= temp.tempDegree %> </td>
+                                            <td class="justify-content-center" style="display: flex;">
+                                                <a href="/edit-temp/<%= temp._id %>?edit=true">
+                                                    <button type="submit" class="btn btn-success btn-sm"><i class="far fa-edit"></i>Edit</button>
+                                                </a>&nbsp;&nbsp;&nbsp;
+                                                <form action="/delete" method="POST">
+                                                    <input type="hidden" name="tempId" value="<%= temp._id %>">
+                                                    <button type="submit" class="btn btn-danger btn-sm" >
+                                                        <i class="fas fa-trash-alt"></i> Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+
+                                    <% } %>
+                                <% }else{ %>
+                                <h1> No Temperature Data Found </h1>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
